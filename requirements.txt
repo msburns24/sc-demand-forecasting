@@ -1,22 +1,17 @@
 azure-storage-blob
 azure-ai-ml
 fastapi
-ipykernel
-ipython
 lightgbm
 loguru
+matplotlib
 mlflow
 numpy
-matplotlib
 pandas[performance, output-formatting, excel, feather, parquet]
 pandera
 pydantic
 pydantic-settings
-pyperclip
-pytest
-pytest-mock
 python-dotenv
 PyYAML
 rich
 typer
-uvcorn
+uvicorn

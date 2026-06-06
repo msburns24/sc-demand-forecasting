@@ -1,0 +1,7 @@
+-r requirements.txt
+ipykernel
+ipython
+pyperclip
+pytest
+pytest-mock
+ruff
