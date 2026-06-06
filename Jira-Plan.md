@@ -20,7 +20,7 @@ Backlog → To Do → In Progress → In Review → Done
   `Cloud Infrastructure`
 - **Portfolio Artifact** (Checkbox): Yes / No — marks stories that produce
   something visible in the writeup
-- **Sprint** (built-in): Sprint 1–7
+- **Sprint** (built-in): Sprint 1-7
 
 ### Labels (project-wide)
 
@@ -36,7 +36,7 @@ Backlog → To Do → In Progress → In Review → Done
   Azure Blob Storage, data ingestion, documentation scaffolding
 - **SCDF-E2 · ABC-XYZ Segmentation** (Sprint 2): Classify all SKUs by value
   (ABC) and demand variability (XYZ); produce MTS/MTO decision matrix
-- **SCDF-E3 · Demand Forecasting Pipeline** (Sprint 3–4): Feature engineering,
+- **SCDF-E3 · Demand Forecasting Pipeline** (Sprint 3-4): Feature engineering,
   LightGBM training with Azure ML tracking, evaluation by segment
 - **SCDF-E4 · Safety Stock Optimization** (Sprint 5): Translate forecast error
   into safety stock policy; quantify holding vs. stockout trade-off
@@ -161,7 +161,7 @@ forecasting approach. This becomes the "Situation" section of the STAR writeup.
 
 **Labels:** `documentation`, `visualization`  
 **Portfolio Signal:** Business Framing, Domain Knowledge  
-**Portfolio Artifact:** Yes — 2–3 EDA charts will appear in the writeup  
+**Portfolio Artifact:** Yes — 2-3 EDA charts will appear in the writeup  
 **Estimate:** 6h
 
 ### SCDF-11 · Story · Write project README with business framing
@@ -441,7 +441,7 @@ behavior is characterized and explained, not hidden.
 
 Aggregate-level MAPE is a weak signal. Breaking performance down by ABC-XYZ
 segment is the finding that makes this project senior — it shows you understand
-_why_ the model performs differently on different inventory types.
+*why* the model performs differently on different inventory types.
 
 **Acceptance Criteria:**
 
@@ -549,7 +549,7 @@ reporting MAPE, you're showing what service level to target and why.
 **Acceptance Criteria:**
 
 - [ ] For a representative AX item and a representative CZ item: plot safety
-      stock units vs. service level (85%–99.9%)
+      stock units vs. service level (85%-99.9%)
 - [ ] Overlay estimated annual holding cost (assume $X/unit/year — document the
       assumption) and expected annual stockout cost (assume $Y/stockout —
       document)
@@ -641,7 +641,7 @@ the MLE signal (cloud-native, deployed endpoint).
 - [ ] Azure ML experiment screenshot embedded (from SCDF-11)
 - [ ] Live ACI endpoint URL linked — "Try it" demo button
 - [ ] All charts embedded with captions; code in `code-fold: true` blocks
-- [ ] "Limitations & Next Steps" section — 3–5 honest limitations (e.g.,
+- [ ] "Limitations & Next Steps" section — 3-5 honest limitations (e.g.,
       synthetic cost assumptions, static lead time, no real-time retraining, no
       autoscaling)
 - [ ] Links to GitHub repo at top and bottom
@@ -789,7 +789,8 @@ would consume it in a real supply chain system.
   - [ ] `GET /health` — returns `{"status": "ok"}` and model version
   - [ ] `POST /predict` — accepts
         `{"item_id": str, "store_id": str, "date": str}`, returns
-        `{"forecast": float, "abc_class": str, "xyz_class": str, "safety_stock_units": float, "service_level": float}`
+        `{"forecast": float, "abc_class": str, "xyz_class": str,`
+        `"safety_stock_units": float, "service_level": float}`
 - [ ] Model loaded from `models/lgbm_v1.pkl` at startup (or pulled from Azure
       ML model registry)
 - [ ] Input validation via Pydantic models — invalid inputs return 422 with a
@@ -916,7 +917,7 @@ Stories that produce something visible in the portfolio writeup:
 
 | Story   | Artifact                          | Visual Type     |
 | ------- | --------------------------------- | --------------- |
-| SCDF-3  | EDA charts (2–3)                  | Charts          |
+| SCDF-3  | EDA charts (2-3)                  | Charts          |
 | SCDF-7  | ABC-XYZ heatmap                   | Hero Visual #1  |
 | SCDF-8  | MTS/MTO decision table            | Table           |
 | SCDF-11 | Azure ML experiment screenshot    | Screenshot      |
