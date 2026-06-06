@@ -1,0 +1,17 @@
+#!/bin/sh
+
+STAGED=$(git diff --cached --name-only --diff-filter=ACM | grep '\.py$')
+
+if [ -z "$STAGED" ]; then
+  exit 0
+fi
+
+echo "Running ruff on staged files..."
+
+echo "$STAGED" | xargs ruff check --fix
+echo "$STAGED" | xargs ruff format
+
+git add -u
+
+echo "$STAGED" | xargs ruff check
+exit $?
