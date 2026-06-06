@@ -15,11 +15,12 @@ Backlog → To Do → In Progress → In Review → Done
 
 ### Custom Fields (add under Project Settings → Fields)
 
-| Field                  | Type       | Values                                                                                                                            |
-| ---------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| **Portfolio Signal**   | Labels     | `Domain Knowledge`, `Statistical Rigor`, `MLOps`, `Business Framing`, `Data Engineering`, `Visualization`, `Cloud Infrastructure` |
-| **Portfolio Artifact** | Checkbox   | Yes / No — marks stories that produce something visible in the writeup                                                            |
-| **Sprint**             | (built-in) | Sprint 1–7                                                                                                                        |
+- **Portfolio Signal** (Labels): `Domain Knowledge`, `Statistical Rigor`,
+  `MLOps`, `Business Framing`, `Data Engineering`, `Visualization`,
+  `Cloud Infrastructure`
+- **Portfolio Artifact** (Checkbox): Yes / No — marks stories that produce
+  something visible in the writeup
+- **Sprint** (built-in): Sprint 1–7
 
 ### Labels (project-wide)
 
@@ -31,14 +32,18 @@ Backlog → To Do → In Progress → In Review → Done
 
 ## Epics
 
-| Epic Key | Epic Name                      | Goal                                                                                           | Sprint(s)  |
-| -------- | ------------------------------ | ---------------------------------------------------------------------------------------------- | ---------- |
-| SCDF-E1  | Project Setup & Infrastructure | Repo, environment, Azure Blob Storage, data ingestion, documentation scaffolding               | Sprint 1   |
-| SCDF-E2  | ABC-XYZ Segmentation           | Classify all SKUs by value (ABC) and demand variability (XYZ); produce MTS/MTO decision matrix | Sprint 2   |
-| SCDF-E3  | Demand Forecasting Pipeline    | Feature engineering, LightGBM training with Azure ML tracking, evaluation by segment           | Sprint 3–4 |
-| SCDF-E4  | Safety Stock Optimization      | Translate forecast error into safety stock policy; quantify holding vs. stockout trade-off     | Sprint 5   |
-| SCDF-E5  | Portfolio Packaging            | Quarto writeup, visualizations, repo polish, site deployment                                   | Sprint 6   |
-| SCDF-E6  | Azure Deployment               | Dockerize inference service, push to ACR, deploy to ACI, expose live endpoint                  | Sprint 7   |
+- **SCDF-E1 · Project Setup & Infrastructure** (Sprint 1): Repo, environment,
+  Azure Blob Storage, data ingestion, documentation scaffolding
+- **SCDF-E2 · ABC-XYZ Segmentation** (Sprint 2): Classify all SKUs by value
+  (ABC) and demand variability (XYZ); produce MTS/MTO decision matrix
+- **SCDF-E3 · Demand Forecasting Pipeline** (Sprint 3–4): Feature engineering,
+  LightGBM training with Azure ML tracking, evaluation by segment
+- **SCDF-E4 · Safety Stock Optimization** (Sprint 5): Translate forecast error
+  into safety stock policy; quantify holding vs. stockout trade-off
+- **SCDF-E5 · Portfolio Packaging** (Sprint 6): Quarto writeup, visualizations,
+  repo polish, site deployment
+- **SCDF-E6 · Azure Deployment** (Sprint 7): Dockerize inference service, push
+  to ACR, deploy to ACI, expose live endpoint
 
 ---
 
@@ -887,16 +892,21 @@ separates an MLE portfolio from a DS portfolio.
 
 ## Summary: Stories by Sprint
 
-| Sprint    | Stories                                 | Est. Hours | Key Deliverable                                                      |
-| --------- | --------------------------------------- | ---------- | -------------------------------------------------------------------- |
-| Sprint 1  | SCDF-1, SCDF-1a, SCDF-2, SCDF-3, SCDF-4 | ~19h       | Repo + Azure infra + Blob data layer + EDA + README                  |
-| Sprint 2  | SCDF-5 to SCDF-8                        | ~15h       | ABC-XYZ matrix + MTS/MTO decision table                              |
-| Sprint 3  | SCDF-9 to SCDF-12                       | ~20h       | Feature pipeline (→ Blob) + LightGBM + Azure ML tracking + baselines |
-| Sprint 4  | SCDF-13 to SCDF-15                      | ~14h       | Segment-level evaluation + error stats + SHAP                        |
-| Sprint 5  | SCDF-16 to SCDF-19                      | ~16h       | Safety stock policy + trade-off curve + sensitivity                  |
-| Sprint 6  | SCDF-20 to SCDF-23                      | ~18h       | Quarto writeup + polished repo + live on site                        |
-| Sprint 7  | SCDF-24 to SCDF-27                      | ~20h       | Docker image → ACR → ACI live endpoint + CI pipeline                 |
-| **Total** | **27 stories**                          | **~122h**  |                                                                      |
+- **Sprint 1** (~19h) — SCDF-1, SCDF-1a, SCDF-2, SCDF-3, SCDF-4
+  - Repo + Azure infra + Blob data layer + EDA + README
+- **Sprint 2** (~15h) — SCDF-5 to SCDF-8
+  - ABC-XYZ matrix + MTS/MTO decision table
+- **Sprint 3** (~20h) — SCDF-9 to SCDF-12
+  - Feature pipeline (→ Blob) + LightGBM + Azure ML tracking + baselines
+- **Sprint 4** (~14h) — SCDF-13 to SCDF-15
+  - Segment-level evaluation + error stats + SHAP
+- **Sprint 5** (~16h) — SCDF-16 to SCDF-19
+  - Safety stock policy + trade-off curve + sensitivity
+- **Sprint 6** (~18h) — SCDF-20 to SCDF-23
+  - Quarto writeup + polished repo + live on site
+- **Sprint 7** (~20h) — SCDF-24 to SCDF-27
+  - Docker image → ACR → ACI live endpoint + CI pipeline
+- **Total: ~122h across 27 stories**
 
 ---
 
