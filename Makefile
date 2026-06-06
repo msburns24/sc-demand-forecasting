@@ -1,6 +1,7 @@
 .PHONY: setup lint format lint-fix test run help
 
 setup:
+  git config core.hooksPath .githooks
 	python -m venv .venv --upgrade-deps
 	.venv/bin/python -m pip install -r requirements-dev.txt
 
