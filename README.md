@@ -1,1 +1,1 @@
-# sc-demand-forecasting
+# Supply Chain Demand Forecasting & Inventory Optimization
