@@ -28,7 +28,7 @@ def download_dataset_from_kaggle(output_dir: Optional[Path] = None) -> None:
     logger.info(f"Downloading dataset: '{COMPETITION_NAME}'")
     kagglehub.competition_download(
         COMPETITION_NAME,
-        output_dir=str(output_dir),
+        output_dir=str(output_dir / "m5"),
         force_download=True,
     )
 
