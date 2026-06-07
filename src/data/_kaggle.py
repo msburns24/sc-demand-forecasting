@@ -24,7 +24,7 @@ def download_dataset_from_kaggle(output_dir: Optional[Path] = None) -> None:
     files to `<project-root>/data/`.
     """
     output_dir = DEFAULT_OUTPUT_DIR if output_dir is None else output_dir
-    configure_logging(name="download_dataset_from_kaggle", console=True)
+    configure_logging(name="kaggle", console=True)
     logger.info(f"Downloading dataset: '{COMPETITION_NAME}'")
     kagglehub.competition_download(
         COMPETITION_NAME,

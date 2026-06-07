@@ -5,7 +5,7 @@ from typing import Annotated, Optional
 import typer
 
 from src.data._kaggle import download_dataset_from_kaggle
-from src.data.blob_io import upload_data_to_blob
+from src.data.blob_io import upload_files_to_blob
 
 
 app = typer.Typer(
@@ -46,7 +46,7 @@ def upload(
     ] = None,
 ) -> None:
     """Upload data files to Azure Blob Storage (raw container)."""
-    upload_data_to_blob(data_dir)
+    upload_files_to_blob(data_dir)
     return
 
 
