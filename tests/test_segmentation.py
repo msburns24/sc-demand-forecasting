@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from src.segmentation import classify_abc, classify_xyz
+from src.segmentation import classify_abc, classify_mts_mto, classify_xyz
 
 
 # ── Fixtures ──────────────────────────────────────────────────────────────────
@@ -201,3 +201,52 @@ class TestClassifyXyz:
         df = pd.DataFrame(_xyz_rows("S1", "I1", [2, 10, 18, 10]))
         result = classify_xyz(df, "demand", "date", x_threshold=0.8)
         assert result["xyz_class"].iloc[0] == "X"
+
+
+# ── classify_mts_mto tests ────────────────────────────────────────────────────
+
+
+class TestClassifyMtsMto:
+    _POLICY_MAP = {
+        "AX": "MTS",
+        "AY": "MTS",
+        "AZ": "MTS",
+        "BX": "MTS",
+        "BY": "MTS",
+        "BZ": "MTS/review",
+        "CX": "MTS",
+        "CY": "MTS/review",
+        "CZ": "MTO",
+    }
+
+    def test_all_nine_cells(self):
+        abc = pd.Series([cell[0] for cell in self._POLICY_MAP])
+        xyz = pd.Series([cell[1] for cell in self._POLICY_MAP])
+        result = classify_mts_mto(abc, xyz)
+        expected = pd.Series(list(self._POLICY_MAP.values()))
+        pd.testing.assert_series_equal(result, expected, check_names=False)
+
+    def test_mts_cells(self):
+        for cell in ["AX", "AY", "AZ", "BX", "BY", "CX"]:
+            result = classify_mts_mto(pd.Series([cell[0]]), pd.Series([cell[1]]))
+            assert result.iloc[0] == "MTS", f"{cell} should be MTS"
+
+    def test_mts_review_cells(self):
+        for cell in ["BZ", "CY"]:
+            result = classify_mts_mto(pd.Series([cell[0]]), pd.Series([cell[1]]))
+            assert result.iloc[0] == "MTS/review", f"{cell} should be MTS/review"
+
+    def test_cz_is_mto(self):
+        result = classify_mts_mto(pd.Series(["C"]), pd.Series(["Z"]))
+        assert result.iloc[0] == "MTO"
+
+    def test_output_length_matches_input(self):
+        abc = pd.Series(["A", "B", "C"] * 3)
+        xyz = pd.Series(["X", "Y", "Z"] * 3)
+        assert len(classify_mts_mto(abc, xyz)) == len(abc)
+
+    def test_preserves_index(self):
+        abc = pd.Series(["A", "B", "C"], index=[10, 20, 30])
+        xyz = pd.Series(["X", "Y", "Z"], index=[10, 20, 30])
+        result = classify_mts_mto(abc, xyz)
+        assert list(result.index) == [10, 20, 30]

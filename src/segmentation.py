@@ -87,3 +87,20 @@ def classify_xyz(
         on=["store_id", "item_id"],
         how="left",
     )
+
+
+def classify_mts_mto(abc: pd.Series, xyz: pd.Series) -> pd.Series:
+    """
+    Map ABC and XYZ class labels to an inventory stocking policy.
+
+    - **MTS** (Make to Stock): AX, AY, AZ, BX, BY, CX
+    - **MTS/review** (MTS with periodic review): BZ, CY
+    - **MTO** (Make to Order): CZ
+    """
+    combined = abc + xyz
+    policy = np.select(
+        [combined == "CZ", combined.isin(["BZ", "CY"])],
+        ["MTO", "MTS/review"],
+        default="MTS",
+    )
+    return pd.Series(policy, index=abc.index)
