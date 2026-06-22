@@ -4,6 +4,8 @@
 
 # Keep the `data` directory, but ignore large CSV files extracted to it.
 data/*.csv
+data/raw/
+data/processed/
 
 
 # ---- Template ----------------------------------------------------------------
