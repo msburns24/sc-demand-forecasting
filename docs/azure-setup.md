@@ -99,6 +99,19 @@ az role assignment create \
   --scope /subscriptions/<your-subscription-id>/resourceGroups/rg-scdf-dev/providers/Microsoft.ContainerRegistry/registries/acrscdf
 ```
 
+### Compute Instance
+
+```bash
+az ml compute create \
+  --name cluster-scdf \
+  --type AmlCompute \
+  --size Standard_DS3_v2 \
+  --min-instances 0 \
+  --max-instances 1 \
+  --resource-group rg-scdf-dev \
+  --workspace-name aml-scdf
+```
+
 ## Environment Variables
 
 Required in `.env` (see `.env.example` for the full list):
