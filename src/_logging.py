@@ -29,6 +29,13 @@ def configure_logging(name: Optional[str] = None, console: bool = True) -> None:
         filename = "{time}_" + name + ".log"
         logger.add(LOG_DIR / filename, level="DEBUG")
     if console:
+        # Force UTF-8 so non-ASCII log characters (e.g. '→') don't crash the
+        # console handler on Windows, where stdout defaults to cp1252.
+        if hasattr(sys.stdout, "reconfigure"):
+            try:
+                sys.stdout.reconfigure(encoding="utf-8")
+            except (ValueError, OSError):
+                pass
         logger.add(
             sys.stdout,
             level="INFO",

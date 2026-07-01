@@ -1,0 +1,12 @@
+{
+  "rmse": 2.1741,
+  "mape": 57.1489,
+  "n_train": 58327370,
+  "n_val": 853720,
+  "n_features": 25,
+  "feature_set": "horizon_safe",
+  "best_iteration": 646,
+  "val_days": 28,
+  "stores": "all",
+  "train_seconds": 400.1
+}

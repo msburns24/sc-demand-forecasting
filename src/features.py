@@ -63,6 +63,7 @@ def build_features(
         .pipe(_impute_sell_prices)
         .pipe(_add_lag_features)
         .pipe(_add_rolling_features)
+        .pipe(_add_horizon_safe_rolling_features)
         .pipe(_add_calendar_features)
         .pipe(_add_price_features)
         .pipe(_encode_categorical_columns)
@@ -267,7 +268,7 @@ def _impute_sell_prices(
 
 def _add_lag_features(
     df: DataFrame,
-    lags: Iterable[int] = (7, 14, 28),
+    lags: Iterable[int] = (7, 14, 28, 35, 42),
     value_col: str = "sales",
     prefix: str = "lag_",
     store_col: str = "store_id",
@@ -299,6 +300,37 @@ def _add_rolling_features(
             lambda s: s.rolling(window, min_periods=1).mean()
         )
         df[f"{std_prefix}{window}"] = shifted.groupby(group_key).transform(
+            lambda s: s.rolling(window, min_periods=1).std()
+        )
+    return df
+
+
+def _add_horizon_safe_rolling_features(
+    df: DataFrame,
+    windows: Iterable[int] = (7, 28),
+    horizon: int = 28,
+    value_col: str = "sales",
+    mean_prefix: str = "rolling_mean_",
+    std_prefix: str = "rolling_std_",
+    store_col: str = "store_id",
+    item_col: str = "item_id",
+) -> DataFrame:
+    """
+    Rolling mean/std computed on sales shifted by the full forecast `horizon`
+    (28 days), so every value is knowable at the cutoff for the entire 28-day
+    horizon. These are leakage-free counterparts to the `shift(1)` rolling
+    features (which leak across a multi-step forecast). Columns are suffixed
+    `_lag{horizon}`, e.g. `rolling_mean_7_lag28`.
+    """
+    logger.info("Building horizon-safe rolling features...")
+    suffix = f"_lag{horizon}"
+    group_key = df[store_col].astype(str) + "_" + df[item_col].astype(str)
+    shifted = df.groupby([store_col, item_col])[value_col].shift(horizon)
+    for window in windows:
+        df[f"{mean_prefix}{window}{suffix}"] = shifted.groupby(group_key).transform(
+            lambda s: s.rolling(window, min_periods=1).mean()
+        )
+        df[f"{std_prefix}{window}{suffix}"] = shifted.groupby(group_key).transform(
             lambda s: s.rolling(window, min_periods=1).std()
         )
     return df

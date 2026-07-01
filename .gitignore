@@ -7,6 +7,9 @@ data/*.csv
 data/raw/
 data/processed/
 
+# Trained model artifacts (large binaries, packaged into the Docker image).
+models/
+
 
 # ---- Template ----------------------------------------------------------------
 
