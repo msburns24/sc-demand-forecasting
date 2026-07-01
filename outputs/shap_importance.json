@@ -1,0 +1,127 @@
+[
+  {
+    "feature": "rolling_mean_28_lag28",
+    "mean_abs_shap": 0.4941,
+    "rank": 1
+  },
+  {
+    "feature": "rolling_std_28_lag28",
+    "mean_abs_shap": 0.3649,
+    "rank": 2
+  },
+  {
+    "feature": "item_id",
+    "mean_abs_shap": 0.2732,
+    "rank": 3
+  },
+  {
+    "feature": "dept_id",
+    "mean_abs_shap": 0.1273,
+    "rank": 4
+  },
+  {
+    "feature": "rolling_mean_7_lag28",
+    "mean_abs_shap": 0.1149,
+    "rank": 5
+  },
+  {
+    "feature": "day_of_week",
+    "mean_abs_shap": 0.0888,
+    "rank": 6
+  },
+  {
+    "feature": "store_id",
+    "mean_abs_shap": 0.0737,
+    "rank": 7
+  },
+  {
+    "feature": "lag_28",
+    "mean_abs_shap": 0.0373,
+    "rank": 8
+  },
+  {
+    "feature": "price_relative_to_category_mean",
+    "mean_abs_shap": 0.0372,
+    "rank": 9
+  },
+  {
+    "feature": "sell_price",
+    "mean_abs_shap": 0.0365,
+    "rank": 10
+  },
+  {
+    "feature": "rolling_std_7_lag28",
+    "mean_abs_shap": 0.0235,
+    "rank": 11
+  },
+  {
+    "feature": "lag_42",
+    "mean_abs_shap": 0.0203,
+    "rank": 12
+  },
+  {
+    "feature": "week_of_year",
+    "mean_abs_shap": 0.0182,
+    "rank": 13
+  },
+  {
+    "feature": "lag_35",
+    "mean_abs_shap": 0.0179,
+    "rank": 14
+  },
+  {
+    "feature": "cat_id",
+    "mean_abs_shap": 0.0175,
+    "rank": 15
+  },
+  {
+    "feature": "is_weekend",
+    "mean_abs_shap": 0.0163,
+    "rank": 16
+  },
+  {
+    "feature": "is_snap_TX",
+    "mean_abs_shap": 0.0163,
+    "rank": 17
+  },
+  {
+    "feature": "is_snap_CA",
+    "mean_abs_shap": 0.015,
+    "rank": 18
+  },
+  {
+    "feature": "is_holiday",
+    "mean_abs_shap": 0.0147,
+    "rank": 19
+  },
+  {
+    "feature": "is_snap_WI",
+    "mean_abs_shap": 0.0129,
+    "rank": 20
+  },
+  {
+    "feature": "month",
+    "mean_abs_shap": 0.0083,
+    "rank": 21
+  },
+  {
+    "feature": "state_id",
+    "mean_abs_shap": 0.0047,
+    "rank": 22
+  },
+  {
+    "feature": "price_change_pct",
+    "mean_abs_shap": 0.0004,
+    "rank": 23
+  },
+  {
+    "feature": "is_price_decrease",
+    "mean_abs_shap": 0.0,
+    "rank": 24
+  },
+  {
+    "feature": "is_price_increase",
+    "mean_abs_shap": 0.0,
+    "rank": 25
+  }
+]

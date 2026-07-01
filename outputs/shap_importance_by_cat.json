@@ -1,0 +1,452 @@
+[
+  {
+    "group": "FOODS",
+    "feature": "rolling_mean_28_lag28",
+    "mean_abs_shap": 0.5565,
+    "rank_within_group": 1
+  },
+  {
+    "group": "FOODS",
+    "feature": "rolling_std_28_lag28",
+    "mean_abs_shap": 0.3988,
+    "rank_within_group": 2
+  },
+  {
+    "group": "FOODS",
+    "feature": "item_id",
+    "mean_abs_shap": 0.2978,
+    "rank_within_group": 3
+  },
+  {
+    "group": "FOODS",
+    "feature": "rolling_mean_7_lag28",
+    "mean_abs_shap": 0.1397,
+    "rank_within_group": 4
+  },
+  {
+    "group": "FOODS",
+    "feature": "dept_id",
+    "mean_abs_shap": 0.1055,
+    "rank_within_group": 5
+  },
+  {
+    "group": "FOODS",
+    "feature": "day_of_week",
+    "mean_abs_shap": 0.0843,
+    "rank_within_group": 6
+  },
+  {
+    "group": "FOODS",
+    "feature": "store_id",
+    "mean_abs_shap": 0.0684,
+    "rank_within_group": 7
+  },
+  {
+    "group": "FOODS",
+    "feature": "lag_28",
+    "mean_abs_shap": 0.0439,
+    "rank_within_group": 8
+  },
+  {
+    "group": "FOODS",
+    "feature": "sell_price",
+    "mean_abs_shap": 0.0386,
+    "rank_within_group": 9
+  },
+  {
+    "group": "FOODS",
+    "feature": "price_relative_to_category_mean",
+    "mean_abs_shap": 0.0372,
+    "rank_within_group": 10
+  },
+  {
+    "group": "FOODS",
+    "feature": "rolling_std_7_lag28",
+    "mean_abs_shap": 0.0254,
+    "rank_within_group": 11
+  },
+  {
+    "group": "FOODS",
+    "feature": "lag_42",
+    "mean_abs_shap": 0.0236,
+    "rank_within_group": 12
+  },
+  {
+    "group": "FOODS",
+    "feature": "is_snap_TX",
+    "mean_abs_shap": 0.0211,
+    "rank_within_group": 13
+  },
+  {
+    "group": "FOODS",
+    "feature": "cat_id",
+    "mean_abs_shap": 0.0207,
+    "rank_within_group": 14
+  },
+  {
+    "group": "FOODS",
+    "feature": "lag_35",
+    "mean_abs_shap": 0.0201,
+    "rank_within_group": 15
+  },
+  {
+    "group": "FOODS",
+    "feature": "week_of_year",
+    "mean_abs_shap": 0.0193,
+    "rank_within_group": 16
+  },
+  {
+    "group": "FOODS",
+    "feature": "is_snap_WI",
+    "mean_abs_shap": 0.0182,
+    "rank_within_group": 17
+  },
+  {
+    "group": "FOODS",
+    "feature": "is_snap_CA",
+    "mean_abs_shap": 0.0176,
+    "rank_within_group": 18
+  },
+  {
+    "group": "FOODS",
+    "feature": "is_weekend",
+    "mean_abs_shap": 0.0166,
+    "rank_within_group": 19
+  },
+  {
+    "group": "FOODS",
+    "feature": "is_holiday",
+    "mean_abs_shap": 0.0139,
+    "rank_within_group": 20
+  },
+  {
+    "group": "FOODS",
+    "feature": "month",
+    "mean_abs_shap": 0.0093,
+    "rank_within_group": 21
+  },
+  {
+    "group": "FOODS",
+    "feature": "state_id",
+    "mean_abs_shap": 0.0046,
+    "rank_within_group": 22
+  },
+  {
+    "group": "FOODS",
+    "feature": "price_change_pct",
+    "mean_abs_shap": 0.0004,
+    "rank_within_group": 23
+  },
+  {
+    "group": "FOODS",
+    "feature": "is_price_decrease",
+    "mean_abs_shap": 0.0,
+    "rank_within_group": 24
+  },
+  {
+    "group": "FOODS",
+    "feature": "is_price_increase",
+    "mean_abs_shap": 0.0,
+    "rank_within_group": 25
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "rolling_mean_28_lag28",
+    "mean_abs_shap": 0.4136,
+    "rank_within_group": 1
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "rolling_std_28_lag28",
+    "mean_abs_shap": 0.33,
+    "rank_within_group": 2
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "item_id",
+    "mean_abs_shap": 0.2428,
+    "rank_within_group": 3
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "dept_id",
+    "mean_abs_shap": 0.16,
+    "rank_within_group": 4
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "day_of_week",
+    "mean_abs_shap": 0.0905,
+    "rank_within_group": 5
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "rolling_mean_7_lag28",
+    "mean_abs_shap": 0.0829,
+    "rank_within_group": 6
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "store_id",
+    "mean_abs_shap": 0.0749,
+    "rank_within_group": 7
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "price_relative_to_category_mean",
+    "mean_abs_shap": 0.0432,
+    "rank_within_group": 8
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "sell_price",
+    "mean_abs_shap": 0.0376,
+    "rank_within_group": 9
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "lag_28",
+    "mean_abs_shap": 0.0286,
+    "rank_within_group": 10
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "cat_id",
+    "mean_abs_shap": 0.0218,
+    "rank_within_group": 11
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "rolling_std_7_lag28",
+    "mean_abs_shap": 0.02,
+    "rank_within_group": 12
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "lag_35",
+    "mean_abs_shap": 0.0154,
+    "rank_within_group": 13
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "is_weekend",
+    "mean_abs_shap": 0.015,
+    "rank_within_group": 14
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "lag_42",
+    "mean_abs_shap": 0.0149,
+    "rank_within_group": 15
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "is_holiday",
+    "mean_abs_shap": 0.0148,
+    "rank_within_group": 16
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "week_of_year",
+    "mean_abs_shap": 0.013,
+    "rank_within_group": 17
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "is_snap_CA",
+    "mean_abs_shap": 0.0117,
+    "rank_within_group": 18
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "is_snap_TX",
+    "mean_abs_shap": 0.0117,
+    "rank_within_group": 19
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "is_snap_WI",
+    "mean_abs_shap": 0.0079,
+    "rank_within_group": 20
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "month",
+    "mean_abs_shap": 0.0068,
+    "rank_within_group": 21
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "state_id",
+    "mean_abs_shap": 0.0046,
+    "rank_within_group": 22
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "price_change_pct",
+    "mean_abs_shap": 0.0005,
+    "rank_within_group": 23
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "is_price_decrease",
+    "mean_abs_shap": 0.0,
+    "rank_within_group": 24
+  },
+  {
+    "group": "HOBBIES",
+    "feature": "is_price_increase",
+    "mean_abs_shap": 0.0,
+    "rank_within_group": 25
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "rolling_mean_28_lag28",
+    "mean_abs_shap": 0.4501,
+    "rank_within_group": 1
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "rolling_std_28_lag28",
+    "mean_abs_shap": 0.3364,
+    "rank_within_group": 2
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "item_id",
+    "mean_abs_shap": 0.255,
+    "rank_within_group": 3
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "dept_id",
+    "mean_abs_shap": 0.1404,
+    "rank_within_group": 4
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "rolling_mean_7_lag28",
+    "mean_abs_shap": 0.0974,
+    "rank_within_group": 5
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "day_of_week",
+    "mean_abs_shap": 0.0941,
+    "rank_within_group": 6
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "store_id",
+    "mean_abs_shap": 0.0802,
+    "rank_within_group": 7
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "price_relative_to_category_mean",
+    "mean_abs_shap": 0.034,
+    "rank_within_group": 8
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "sell_price",
+    "mean_abs_shap": 0.0331,
+    "rank_within_group": 9
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "lag_28",
+    "mean_abs_shap": 0.0327,
+    "rank_within_group": 10
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "rolling_std_7_lag28",
+    "mean_abs_shap": 0.0227,
+    "rank_within_group": 11
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "week_of_year",
+    "mean_abs_shap": 0.0194,
+    "rank_within_group": 12
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "lag_42",
+    "mean_abs_shap": 0.0185,
+    "rank_within_group": 13
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "is_weekend",
+    "mean_abs_shap": 0.0167,
+    "rank_within_group": 14
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "lag_35",
+    "mean_abs_shap": 0.0163,
+    "rank_within_group": 15
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "is_holiday",
+    "mean_abs_shap": 0.0158,
+    "rank_within_group": 16
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "is_snap_CA",
+    "mean_abs_shap": 0.0131,
+    "rank_within_group": 17
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "is_snap_TX",
+    "mean_abs_shap": 0.012,
+    "rank_within_group": 18
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "cat_id",
+    "mean_abs_shap": 0.0109,
+    "rank_within_group": 19
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "is_snap_WI",
+    "mean_abs_shap": 0.0082,
+    "rank_within_group": 20
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "month",
+    "mean_abs_shap": 0.0078,
+    "rank_within_group": 21
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "state_id",
+    "mean_abs_shap": 0.0047,
+    "rank_within_group": 22
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "price_change_pct",
+    "mean_abs_shap": 0.0004,
+    "rank_within_group": 23
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "is_price_decrease",
+    "mean_abs_shap": 0.0001,
+    "rank_within_group": 24
+  },
+  {
+    "group": "HOUSEHOLD",
+    "feature": "is_price_increase",
+    "mean_abs_shap": 0.0,
+    "rank_within_group": 25
+  }
+]

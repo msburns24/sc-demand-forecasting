@@ -16,5 +16,6 @@ python-dotenv
 PyYAML
 rich
 scipy
+shap
 typer
 uvicorn
