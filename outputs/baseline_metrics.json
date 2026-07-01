@@ -1,0 +1,15 @@
+{
+  "baselines": {
+    "naive_lag_7": {
+      "rmse": 2.6769,
+      "mape": 82.9402
+    },
+    "naive_lag_28": {
+      "rmse": 2.8292,
+      "mape": 85.0932
+    }
+  },
+  "n_val": 853720,
+  "val_days": 28,
+  "stores": "all"
+}
