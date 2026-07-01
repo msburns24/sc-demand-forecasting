@@ -120,21 +120,21 @@ def train_model(
     cross-series information sharing, one artifact to maintain, and graceful
     handling of short/cold-start series.
 
-    The five identifier columns in ``FEATURE_COLS``
-    (``item_id``, ``store_id``, ``dept_id``, ``cat_id``, ``state_id``) arrive as
-    pandas ``category`` dtype from ``build_features``, so LightGBM detects them
-    as categorical automatically — no explicit ``categorical_feature`` list is
+    The five identifier columns in `FEATURE_COLS`
+    (`item_id`, `store_id`, `dept_id`, `cat_id`, `state_id`) arrive as
+    pandas `category` dtype from `build_features`, so LightGBM detects them
+    as categorical automatically — no explicit `categorical_feature` list is
     needed. Lag/rolling NaNs (the first 28 days of each series) are handled
     natively by LightGBM.
 
     Parameters
     ----------
     X_train : DataFrame
-        Training feature matrix (columns are ``FEATURE_COLS``).
+        Training feature matrix (columns are `FEATURE_COLS`).
     y_train : ArrayLike
-        Training target (``TARGET_COL``).
+        Training target (`TARGET_COL`).
     params : dict
-        LightGBM hyperparameters, passed to ``LGBMRegressor(**params)``.
+        LightGBM hyperparameters, passed to `LGBMRegressor(**params)`.
     X_val, y_val : DataFrame, ArrayLike, optional
         Validation set. When both are given, training uses early stopping
         against the validation RMSE.
@@ -148,7 +148,9 @@ def train_model(
         The fitted model.
     """
     model = LGBMRegressor(**params)
-    logger.info(f"Training LightGBM on {len(X_train):,} rows, {X_train.shape[1]} features")
+    logger.info(
+        f"Training LightGBM on {len(X_train):,} rows, {X_train.shape[1]} features"
+    )
 
     fit_kwargs: dict = {}
     if X_val is not None and y_val is not None:
@@ -161,7 +163,9 @@ def train_model(
 
     model.fit(X_train, y_train, **fit_kwargs)
 
-    logger.info(f"Trained {model.n_estimators_} trees (best iteration: {model.best_iteration_})")
+    logger.info(
+        f"Trained {model.n_estimators_} trees (best iteration: {model.best_iteration_})"
+    )
     return model
 
 
@@ -179,7 +183,7 @@ def mape(y_true: ArrayLike, y_pred: ArrayLike) -> float:
     M5 demand is intermittent — many actuals are zero, for which percentage
     error is undefined. Those rows are masked out, so MAPE is reported only
     over non-zero actuals. RMSE (above) is the leakage-free primary metric;
-    MAPE is a secondary, business-friendly figure. Returns ``nan`` if every
+    MAPE is a secondary, business-friendly figure. Returns `nan` if every
     actual is zero.
     """
     y_true = np.asarray(y_true, dtype=float)
@@ -187,4 +191,5 @@ def mape(y_true: ArrayLike, y_pred: ArrayLike) -> float:
     mask = y_true != 0
     if not mask.any():
         return float("nan")
-    return float(np.mean(np.abs((y_true[mask] - y_pred[mask]) / y_true[mask])) * 100)
+    y_true, y_pred = y_true[mask], y_pred[mask]
+    return float(np.mean(np.abs((y_true - y_pred) / y_true)) * 100)

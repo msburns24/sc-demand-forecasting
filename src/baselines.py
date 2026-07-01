@@ -9,26 +9,20 @@ window reference only actual demand observed at or before the cutoff (the last
 against the horizon-safe LightGBM model.
 """
 
-import sys
+import json
 from pathlib import Path
 from typing import Annotated, Optional
 
-_ROOT = Path(__file__).resolve().parent.parent
-if str(_ROOT) not in sys.path:
-    sys.path.insert(0, str(_ROOT))
+import pandas as pd
+import typer
+from pandas import DataFrame
 
-import json  # noqa: E402
-
-import pandas as pd  # noqa: E402
-import typer  # noqa: E402
-from pandas import DataFrame  # noqa: E402
-
-from src._logging import logger, configure_logging  # noqa: E402
-from src.cli import create_app  # noqa: E402
-from src.model import mape, rmse  # noqa: E402
+from src._logging import logger, configure_logging
+from src.cli import create_app
+from src.model import mape, rmse
 
 
-ROOT_DIR = _ROOT
+ROOT_DIR = Path(__file__).parent.parent
 PROCESSED_DATA_DIR = ROOT_DIR / "data" / "processed"
 OUTPUTS_DIR = ROOT_DIR / "outputs"
 DEFAULT_METRICS_PATH = OUTPUTS_DIR / "baseline_metrics.json"
@@ -80,18 +74,15 @@ def naive_seasonal_forecast(
     cutoff = df[date_col].max() - pd.Timedelta(days=val_days - 1)
     val = df[df[date_col] >= cutoff].copy()
     val["offset"] = (val[date_col] - cutoff).dt.days
-    val["ref_date"] = cutoff - pd.Timedelta(days=lag) + pd.to_timedelta(
-        val["offset"] % lag, unit="D"
+    val["ref_date"] = (
+        cutoff - pd.Timedelta(days=lag) + pd.to_timedelta(val["offset"] % lag, unit="D")
     )
 
     # Only the last `lag` observed days can ever be referenced — keep just those.
     ref_lo = cutoff - pd.Timedelta(days=lag)
-    hist = (
-        df[(df[date_col] >= ref_lo) & (df[date_col] < cutoff)][
-            [*group_cols, date_col, value_col]
-        ]
-        .rename(columns={date_col: "ref_date", value_col: "prediction"})
-    )
+    hist = df[(df[date_col] >= ref_lo) & (df[date_col] < cutoff)][
+        [*group_cols, date_col, value_col]
+    ].rename(columns={date_col: "ref_date", value_col: "prediction"})
 
     val = val.merge(hist, on=[*group_cols, "ref_date"], how="left")
     val["prediction"] = val["prediction"].fillna(0.0)
