@@ -89,6 +89,47 @@ def classify_xyz(
     )
 
 
+def segment_skus(
+    df: DataFrame,
+    value_col: str,
+    date_col: str = "date",
+    store_col: str = "store_id",
+    item_col: str = "item_id",
+) -> DataFrame:
+    """
+    Build the per-SKU-store ABC-XYZ label table.
+
+    Composes `classify_abc` and `classify_xyz` on `value_col` (typically revenue
+    = units x price), then collapses to one row per `(store_id, item_id)`. This
+    is the shared segment lookup for evaluation (SCDF-20) and error-stats
+    (SCDF-21): merge it onto per-row predictions by `(store_id, item_id)`.
+
+    Parameters
+    ----------
+    df : DataFrame
+        Long-format demand with `store_id`, `item_id`, `date`, and `value_col`.
+    value_col : str
+        Column used for both ABC (cumulative contribution) and XYZ (weekly CV).
+
+    Returns
+    -------
+    DataFrame
+        Columns `[store_id, item_id, abc_class, xyz_class, abc_xyz]`, one row per
+        SKU-store.
+    """
+    labelled = classify_abc(df, sales_col=value_col, store_col=store_col, item_col=item_col)
+    labelled = classify_xyz(
+        labelled, demand_col=value_col, date_col=date_col, store_col=store_col, item_col=item_col
+    )
+    segments = (
+        labelled.groupby([store_col, item_col], observed=True)[["abc_class", "xyz_class"]]
+        .first()
+        .reset_index()
+    )
+    segments["abc_xyz"] = segments["abc_class"] + segments["xyz_class"]
+    return segments
+
+
 def classify_mts_mto(abc: pd.Series, xyz: pd.Series) -> pd.Series:
     """
     Map ABC and XYZ class labels to an inventory stocking policy.

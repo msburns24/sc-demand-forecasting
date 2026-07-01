@@ -1,0 +1,162 @@
+{
+  "overall": {
+    "direct": {
+      "rmse": 2.1741,
+      "mape": 57.1489
+    },
+    "baseline": {
+      "rmse": 2.6769,
+      "mape": 82.9402
+    },
+    "recursive": {
+      "rmse": 2.0856,
+      "mape": 56.267
+    }
+  },
+  "by_segment": [
+    {
+      "abc_xyz": "AX",
+      "n_skus": 1008,
+      "n_obs": 28224,
+      "direct_rmse": 3.5131,
+      "direct_mape": 51.9295,
+      "recursive_rmse": 3.4354,
+      "recursive_mape": 52.6898,
+      "baseline_rmse": 4.4878,
+      "baseline_mape": 75.652,
+      "abc_class": "A",
+      "xyz_class": "X",
+      "policy": "MTS",
+      "direct_vs_baseline_pct": 21.7,
+      "recursive_vs_baseline_pct": 23.5
+    },
+    {
+      "abc_xyz": "AY",
+      "n_skus": 5173,
+      "n_obs": 144844,
+      "direct_rmse": 3.3933,
+      "direct_mape": 55.7912,
+      "recursive_rmse": 3.2107,
+      "recursive_mape": 55.7194,
+      "baseline_rmse": 4.0106,
+      "baseline_mape": 81.5742,
+      "abc_class": "A",
+      "xyz_class": "Y",
+      "policy": "MTS",
+      "direct_vs_baseline_pct": 15.4,
+      "recursive_vs_baseline_pct": 19.9
+    },
+    {
+      "abc_xyz": "AZ",
+      "n_skus": 1868,
+      "n_obs": 52304,
+      "direct_rmse": 3.607,
+      "direct_mape": 56.7287,
+      "recursive_rmse": 3.2993,
+      "recursive_mape": 55.1919,
+      "baseline_rmse": 4.1861,
+      "baseline_mape": 79.8896,
+      "abc_class": "A",
+      "xyz_class": "Z",
+      "policy": "MTS",
+      "direct_vs_baseline_pct": 13.8,
+      "recursive_vs_baseline_pct": 21.2
+    },
+    {
+      "abc_xyz": "BX",
+      "n_skus": 148,
+      "n_obs": 4144,
+      "direct_rmse": 1.7373,
+      "direct_mape": 49.3308,
+      "recursive_rmse": 1.7519,
+      "recursive_mape": 50.6855,
+      "baseline_rmse": 2.384,
+      "baseline_mape": 84.1516,
+      "abc_class": "B",
+      "xyz_class": "X",
+      "policy": "MTS",
+      "direct_vs_baseline_pct": 27.1,
+      "recursive_vs_baseline_pct": 26.5
+    },
+    {
+      "abc_xyz": "BY",
+      "n_skus": 4607,
+      "n_obs": 128996,
+      "direct_rmse": 1.8427,
+      "direct_mape": 54.9013,
+      "recursive_rmse": 1.858,
+      "recursive_mape": 55.6604,
+      "baseline_rmse": 2.5521,
+      "baseline_mape": 86.1636,
+      "abc_class": "B",
+      "xyz_class": "Y",
+      "policy": "MTS",
+      "direct_vs_baseline_pct": 27.8,
+      "recursive_vs_baseline_pct": 27.2
+    },
+    {
+      "abc_xyz": "BZ",
+      "n_skus": 3946,
+      "n_obs": 110488,
+      "direct_rmse": 1.8308,
+      "direct_mape": 55.5969,
+      "recursive_rmse": 1.7773,
+      "recursive_mape": 53.8404,
+      "baseline_rmse": 2.2653,
+      "baseline_mape": 82.7335,
+      "abc_class": "B",
+      "xyz_class": "Z",
+      "policy": "MTS/review",
+      "direct_vs_baseline_pct": 19.2,
+      "recursive_vs_baseline_pct": 21.5
+    },
+    {
+      "abc_xyz": "CX",
+      "n_skus": 14,
+      "n_obs": 392,
+      "direct_rmse": 1.9082,
+      "direct_mape": 46.0652,
+      "recursive_rmse": 1.9084,
+      "recursive_mape": 54.4162,
+      "baseline_rmse": 2.2874,
+      "baseline_mape": 84.0997,
+      "abc_class": "C",
+      "xyz_class": "X",
+      "policy": "MTS",
+      "direct_vs_baseline_pct": 16.6,
+      "recursive_vs_baseline_pct": 16.6
+    },
+    {
+      "abc_xyz": "CY",
+      "n_skus": 1718,
+      "n_obs": 48104,
+      "direct_rmse": 1.4709,
+      "direct_mape": 58.0806,
+      "recursive_rmse": 1.4832,
+      "recursive_mape": 57.7758,
+      "baseline_rmse": 2.0278,
+      "baseline_mape": 87.0715,
+      "abc_class": "C",
+      "xyz_class": "Y",
+      "policy": "MTS/review",
+      "direct_vs_baseline_pct": 27.5,
+      "recursive_vs_baseline_pct": 26.9
+    },
+    {
+      "abc_xyz": "CZ",
+      "n_skus": 12008,
+      "n_obs": 336224,
+      "direct_rmse": 1.1075,
+      "direct_mape": 62.2689,
+      "recursive_rmse": 1.0954,
+      "recursive_mape": 59.7041,
+      "baseline_rmse": 1.4139,
+      "baseline_mape": 84.4996,
+      "abc_class": "C",
+      "xyz_class": "Z",
+      "policy": "MTO",
+      "direct_vs_baseline_pct": 21.7,
+      "recursive_vs_baseline_pct": 22.5
+    }
+  ]
+}

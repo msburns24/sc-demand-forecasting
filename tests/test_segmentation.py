@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from src.segmentation import classify_abc, classify_mts_mto, classify_xyz
+from src.segmentation import classify_abc, classify_mts_mto, classify_xyz, segment_skus
 
 
 # ── Fixtures ──────────────────────────────────────────────────────────────────
@@ -250,3 +250,47 @@ class TestClassifyMtsMto:
         xyz = pd.Series(["X", "Y", "Z"], index=[10, 20, 30])
         result = classify_mts_mto(abc, xyz)
         assert list(result.index) == [10, 20, 30]
+
+
+# ── segment_skus tests ────────────────────────────────────────────────────────
+
+
+def _segment_df():
+    """One store, four items over four weeks. Totals 700/200/70/30 → A/B/C/C.
+
+    Weekly patterns chosen to also span XYZ:
+      I1 [175,175,175,175]  CV 0     → X   → AX
+      I2 [20,180,0,0]       CV ~1.7  → Z   → BZ
+      I3 [5,30,30,5]        CV ~0.8  → Y   → CY
+      I4 [0,0,0,30]         CV 2.0   → Z   → CZ
+    """
+    patterns = {
+        "I1": [175, 175, 175, 175],
+        "I2": [20, 180, 0, 0],
+        "I3": [5, 30, 30, 5],
+        "I4": [0, 0, 0, 30],
+    }
+    rows = [
+        {"store_id": "S1", "item_id": item, "date": date, "value": v}
+        for item, vals in patterns.items()
+        for date, v in zip(_WEEKS, vals)
+    ]
+    return pd.DataFrame(rows)
+
+
+class TestSegmentSkus:
+    def test_one_row_per_sku(self):
+        seg = segment_skus(_segment_df(), value_col="value")
+        assert len(seg) == 4
+        assert set(seg.columns) >= {"store_id", "item_id", "abc_class", "xyz_class", "abc_xyz"}
+
+    def test_expected_cells(self):
+        seg = segment_skus(_segment_df(), value_col="value").set_index("item_id")
+        assert seg.loc["I1", "abc_xyz"] == "AX"
+        assert seg.loc["I2", "abc_xyz"] == "BZ"
+        assert seg.loc["I3", "abc_xyz"] == "CY"
+        assert seg.loc["I4", "abc_xyz"] == "CZ"
+
+    def test_abc_xyz_is_concatenation(self):
+        seg = segment_skus(_segment_df(), value_col="value")
+        assert (seg["abc_xyz"] == seg["abc_class"] + seg["xyz_class"]).all()

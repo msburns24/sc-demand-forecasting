@@ -36,13 +36,23 @@ from src.model import (  # noqa: E402
     rmse,
     train_model,
 )
-from src.train import PROCESSED_DATA_DIR, _load_config, _load_features  # noqa: E402
+from src.train import (  # noqa: E402
+    CATEGORICAL_COLS,
+    LOAD_COLS,
+    PROCESSED_DATA_DIR,
+    _downcast_numeric,
+    _load_config,
+)
 
 
 ROOT_DIR = _ROOT
 CONFIG_PATH = ROOT_DIR / "config" / "model_config.yaml"
 OUTPUTS_DIR = ROOT_DIR / "outputs"
 DEFAULT_METRICS_PATH = OUTPUTS_DIR / "recursive_metrics.json"
+# Per-row validation predictions, consumed by src.evaluation (SCDF-20) for the
+# per-segment comparison without re-running this ~18-min pipeline.
+PREDICTIONS_PATH = PROCESSED_DATA_DIR / "recursive_val_predictions.parquet"
+PRED_COLS = ["store_id", "item_id", "date", "sales", "prediction"]
 
 # Max history lookback needed to recompute the recursive features (lag_28 /
 # rolling_28). Everything else (lag_35+, shift(28) rollings, calendar, price)
@@ -136,6 +146,13 @@ def main(
     metrics_out: Annotated[Path, typer.Option("--metrics-out")] = DEFAULT_METRICS_PATH,
     val_days: Annotated[int, typer.Option("--val-days")] = 28,
     stores: Annotated[Optional[str], typer.Option("--stores")] = None,
+    sample_frac: Annotated[
+        float,
+        typer.Option(
+            "--sample-frac",
+            help="Fraction of training rows to fit on (<1.0 bounds the fit memory).",
+        ),
+    ] = 1.0,
 ) -> None:
     """
     Train a 1-step model on the full feature set (pre-cutoff data only, with an
@@ -147,26 +164,12 @@ def main(
     early = int(training_cfg.get("early_stopping_rounds", 50))
     store_list = [s.strip() for s in stores.split(",")] if stores else None
 
-    df = _load_features(features_dir, stores=store_list)
-
-    cutoff = df["date"].max() - pd.Timedelta(days=val_days - 1)
-    lo = cutoff - pd.Timedelta(days=HISTORY_BACK)
-    inner_cutoff = cutoff - pd.Timedelta(days=val_days)
-
-    # Recursion only needs the last HISTORY_BACK + val_days days; keep just that
-    # window and drop the full 59M-row frame before training to bound peak memory.
-    recursion_df = df[df["date"] >= lo].copy()
-
-    # Inner holdout (last val_days before the real cutoff) for early stopping,
-    # so the real validation window never touches training. Select only the
-    # needed columns to avoid a second full-frame copy.
-    tr = df["date"] < inner_cutoff
-    iv = (df["date"] >= inner_cutoff) & (df["date"] < cutoff)
-    X_tr, y_tr = df.loc[tr, FEATURE_COLS], df.loc[tr, TARGET_COL]
-    X_iv, y_iv = df.loc[iv, FEATURE_COLS], df.loc[iv, TARGET_COL]
-    del df
+    X_tr, y_tr, X_iv, y_iv, recursion_df = _load_recursion_data(
+        features_dir, store_list, val_days, sample_frac=sample_frac
+    )
 
     logger.info(f"Training 1-step model on full feature set ({len(FEATURE_COLS)} features)")
+    n_train = len(X_tr)
     start = time.perf_counter()
     model = train_model(X_tr, y_tr, params, X_iv, y_iv, early)
     train_seconds = time.perf_counter() - start
@@ -183,12 +186,82 @@ def main(
         "method": "recursive_multistep",
         "val_days": int(val_days),
         "stores": store_list or "all",
+        "sample_frac": sample_frac,
+        "n_train": int(n_train),
         "train_seconds": round(train_seconds, 1),
     }
     _save_metrics(metrics, metrics_out)
+
+    PREDICTIONS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    val_pred[PRED_COLS].to_parquet(PREDICTIONS_PATH, index=False)
+
     logger.success(f"Recursive multi-step RMSE={metrics['rmse']} MAPE={metrics['mape']}%")
-    logger.success(f"Saved -> {metrics_out}")
+    logger.success(f"Saved metrics -> {metrics_out}")
+    logger.success(f"Saved predictions -> {PREDICTIONS_PATH}")
     return
+
+
+def _load_recursion_data(features_dir: Path, stores, val_days: int, sample_frac: float = 1.0):
+    """
+    Load training / inner-holdout / recursion frames per store, never holding the
+    full 59M-row matrix plus a big copy at once.
+
+    On this machine the Windows commit limit (~physical RAM, no page file) is the
+    real ceiling, not resident memory — so we build the training matrices by
+    concatenating per-store slices rather than slicing one giant frame. Returns
+    `(X_tr, y_tr, X_iv, y_iv, recursion_df)`.
+
+    `sample_frac < 1.0` randomly subsamples the *training* rows (per store, seed
+    42) to bound the LightGBM fit-array size; the recursion window is never
+    subsampled, so every series is still forecast across the full horizon.
+    """
+    paths = sorted(features_dir.glob("features_*.parquet"))
+    if stores:
+        wanted = {f"features_{s}.parquet" for s in stores}
+        paths = [p for p in paths if p.name in wanted]
+    if not paths:
+        raise FileNotFoundError(
+            f"No feature parquet files found in '{features_dir}'. "
+            "Build them first with `python -m src.features`."
+        )
+
+    # All stores share the M5 calendar, so the cutoff is global.
+    max_date = pd.read_parquet(paths[0], columns=["date"])["date"].max()
+    cutoff = max_date - pd.Timedelta(days=val_days - 1)
+    lo = cutoff - pd.Timedelta(days=HISTORY_BACK)
+    inner_cutoff = cutoff - pd.Timedelta(days=val_days)
+
+    xtr, ytr, xiv, yiv, rec = [], [], [], [], []
+    for p in paths:
+        d = _downcast_numeric(pd.read_parquet(p, columns=LOAD_COLS))
+        tr = d["date"] < inner_cutoff
+        iv = (d["date"] >= inner_cutoff) & (d["date"] < cutoff)
+        tr_x = d.loc[tr, FEATURE_COLS]
+        tr_y = d.loc[tr, TARGET_COL]
+        if sample_frac < 1.0:
+            tr_x = tr_x.sample(frac=sample_frac, random_state=42)
+            tr_y = tr_y.loc[tr_x.index]
+        xtr.append(tr_x)
+        ytr.append(tr_y)
+        xiv.append(d.loc[iv, FEATURE_COLS])
+        yiv.append(d.loc[iv, TARGET_COL])
+        rec.append(d[d["date"] >= lo])
+        del d
+
+    X_tr = pd.concat(xtr, ignore_index=True)
+    del xtr
+    y_tr = pd.concat(ytr, ignore_index=True)
+    X_iv = pd.concat(xiv, ignore_index=True)
+    y_iv = pd.concat(yiv, ignore_index=True)
+    recursion_df = pd.concat(rec, ignore_index=True)
+
+    # Concat collapses mismatched per-file category sets to object — re-cast.
+    for frame in (X_tr, X_iv, recursion_df):
+        for col in CATEGORICAL_COLS:
+            frame[col] = frame[col].astype("category")
+
+    logger.info(f"Loaded train={len(X_tr):,} inner_val={len(X_iv):,} recursion={len(recursion_df):,}")
+    return X_tr, y_tr, X_iv, y_iv, recursion_df
 
 
 def _save_metrics(payload: dict, path: Path) -> None:
