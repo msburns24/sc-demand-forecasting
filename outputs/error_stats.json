@@ -1,0 +1,83 @@
+[
+  {
+    "abc_xyz": "AX",
+    "n_obs": 28224,
+    "bias": 0.2047,
+    "sigma": 3.5071,
+    "skew": 1.9553,
+    "shapiro_p": 0.0,
+    "is_normal": false
+  },
+  {
+    "abc_xyz": "AY",
+    "n_obs": 144844,
+    "bias": 0.2416,
+    "sigma": 3.3847,
+    "skew": 5.2255,
+    "shapiro_p": 0.0,
+    "is_normal": false
+  },
+  {
+    "abc_xyz": "AZ",
+    "n_obs": 52304,
+    "bias": 0.4407,
+    "sigma": 3.58,
+    "skew": 3.0387,
+    "shapiro_p": 0.0,
+    "is_normal": false
+  },
+  {
+    "abc_xyz": "BX",
+    "n_obs": 4144,
+    "bias": -0.0336,
+    "sigma": 1.7371,
+    "skew": 1.5667,
+    "shapiro_p": 0.0,
+    "is_normal": false
+  },
+  {
+    "abc_xyz": "BY",
+    "n_obs": 128996,
+    "bias": 0.0421,
+    "sigma": 1.8422,
+    "skew": 4.366,
+    "shapiro_p": 0.0,
+    "is_normal": false
+  },
+  {
+    "abc_xyz": "BZ",
+    "n_obs": 110488,
+    "bias": 0.1585,
+    "sigma": 1.824,
+    "skew": 6.8362,
+    "shapiro_p": 0.0,
+    "is_normal": false
+  },
+  {
+    "abc_xyz": "CX",
+    "n_obs": 392,
+    "bias": -0.0547,
+    "sigma": 1.9098,
+    "skew": 3.4214,
+    "shapiro_p": 0.0,
+    "is_normal": false
+  },
+  {
+    "abc_xyz": "CY",
+    "n_obs": 48104,
+    "bias": 0.02,
+    "sigma": 1.4707,
+    "skew": 5.4898,
+    "shapiro_p": 0.0,
+    "is_normal": false
+  },
+  {
+    "abc_xyz": "CZ",
+    "n_obs": 336224,
+    "bias": 0.0613,
+    "sigma": 1.1058,
+    "skew": 7.7726,
+    "shapiro_p": 0.0,
+    "is_normal": false
+  }
+]

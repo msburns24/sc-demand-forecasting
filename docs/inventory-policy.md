@@ -197,3 +197,8 @@ Together, the stocking policy and service level assignments form the input layer
 for the safety stock optimization in Sprint 5: each segment's Z-score (derived
 from its service level target) is applied to the forecast error distribution to
 produce per-SKU safety stock recommendations.
+
+As of SCDF-21, that forecast-error distribution is quantified per segment in
+`outputs/error_stats.csv` (bias, sigma, skew, and a Shapiro-Wilk normality
+flag per ABC-XYZ cell), computed by `compute_error_stats()` in
+`src/evaluation.py`.

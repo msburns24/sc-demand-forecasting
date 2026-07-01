@@ -15,5 +15,6 @@ pydantic-settings
 python-dotenv
 PyYAML
 rich
+scipy
 typer
 uvicorn
